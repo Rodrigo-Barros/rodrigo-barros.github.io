@@ -1,16 +1,14 @@
-function htmlPrintFromDB(tree,id){
-  getTreeInfo(tree);
-  setTimeout(
-  ()=>{
-    console.log(DBinfo);
-    document.getElementById(id).innerHTML=DBinfo;
-  },2000);
-}
+// ref database
+var database = firebase.database();
 
-function getTreeInfo(tree){
-  return firebase.database().ref('/' + tree).once('value').then(function(snapshot) {
-    DBinfo = snapshot.val();
+function loginAdmin(){
+  user=document.getElementById('nome').value;
+  senha=document.getElementById('senha').value;
+  database.ref('/portifolio/users/1/pass/').once('value').then((snapshot)=>{
+    if(snapshot.val()==md5(senha) && user=="rodrigo"){
+      window.location="sobre.html";
+    }else{
+      alert("você não possui permissão para acessar essa página");
+    }
   });
 }
-
-htmlPrintFromDB('portifolio/users/1/nome','info');
