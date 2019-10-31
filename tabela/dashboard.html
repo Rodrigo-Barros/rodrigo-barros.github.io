@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Painel de controle</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      type="text/css"
+      media="all"
+    />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Dashboard</a>
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link btn btn-danger pl-5 pr-5" onclick="logout()" title="encerra sua sessão">Sair</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col table-responsive">
+          <table class="table">
+            <caption>
+              Tabela de pilotos e equipes
+            </caption>
+
+            <thead class="thead-dark">
+              <tr>
+                <th title="colocacao">#</th>
+                <th>Piloto</th>
+                <th>Equipe</th>
+                <th>Pontuação</th>
+                <th>Acão</th>
+              </tr>
+            </thead>
+            <tbody id="info">
+
+            </tbody>
+          </table>
+          <img src="img/loading.gif" id="loading"/>
+        </div>
+      </div>
+
+      <div class="add-driver bg-primary" title="adicionar novo piloto" onclick="showAddDialog()">
+        <i class="fa fa-plus"></i>
+      </div>
+    </div>
+
+    <!-- cadastro/update? -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="offset-2 col-8 pb-3 pt-3" id="my-modal">
+          <label for="piloto">Piloto:</label>
+          <input
+            class="form-control "
+            type="text"
+            name="piloto"
+            id="piloto"
+            placeholder="Piloto"
+          />
+
+          <label for="equipe">Equipe:</label>
+          <input
+            class="form-control "
+            type="text"
+            name="equipe"
+            id="equipe"
+            placeholder="Equipe"
+          />
+
+          <label for="pontuacao">Pontuacão:</label>
+          <input
+            class="form-control "
+            type="text"
+            name="pntuacao"
+            id="pontuacao"
+            placeholder="Pontuacao"
+          />
+          <input
+            id="form-submit"
+            class="btn form-control btn-primary mt-3 mb-3"
+            type="button"
+            value="Cadastrar"
+            onclick="addDriver()"
+          />
+
+          <input class="btn btn-danger form-control" type="button" value="Cancelar" onclick="showSiteAgain()">
+          <input type="hidden" value="create" id="form-action">
+        </div>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

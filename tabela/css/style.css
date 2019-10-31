@@ -1,0 +1,145 @@
+caption {
+  caption-side: top;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  background: black;
+}
+
+.add-driver {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background: blue;
+}
+
+.add-driver i {
+  font-size: 2.5em;
+  line-height: 70px;
+  color: #fff;
+  width: 70px;
+  text-align: center;
+}
+
+.add-driver:hover {
+  background: #005;
+}
+
+#my-modal {
+  display: none;
+  color: #fff;
+  background: #343a40;
+  position: absolute;
+  top: 25%;
+}
+
+.day-passed {
+  background: #3b4146;
+  color: white;
+}
+
+.fade-in {
+  display: none;
+  animation: fade-in;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+.fade-in-table {
+  animation: fade-in-table;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+
+.fade-out {
+  animation: fade-out;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+.fade-out-table {
+  animation: fade-out-table;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100vh;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    height: 100vh;
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-in-table {
+  from {
+    position: relative;
+    top: -500px;
+    left: 0;
+  }
+  to {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+}
+
+@keyframes fade-out-table {
+  from {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  to {
+    position: relative;
+    top: -500px;
+    left: 0;
+  }
+}
+
+#calendar {
+  direction: rtl;
+  overflow-y: scroll;
+}
+#calendar-button{
+  margin:0;
+}
+
+.calendar {
+  direction: ltr;
+}
+
+#calendar table caption {
+  text-align: left;
+  text-indent: 15px;
+}
+
+#loading {
+  display: block;
+  margin: auto;
+  height: 300px;
+  width: 300px;
+}
+
+@media (max-width: 576px) {
+  #calendar-button {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -107.5px;
+  }
+}

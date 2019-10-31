@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-bt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>tabela de classificação da liga F3</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row fade-in" id="calendar">
+        <table class="table calendar fade-in-table">
+          <caption>
+            Calendário de corridas
+            <button
+              class="float-right d-block mr-2 btn btn-danger pl-5 pr-5"
+              onclick="toogleCalendar()"
+            >
+              fechar
+            </button>
+          </caption>
+          <thead class="thead-dark">
+            <tr>
+              <th>País</th>
+              <th>data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alemanha</td>
+              <td>01/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>04/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>05/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>12/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>16/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>17/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>18/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>21/10/2019</td>
+            </tr>
+            <tr>
+              <td>Itália</td>
+              <td>21/10/2019</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button
+              onclick="toogleCalendar()"
+              class="navbar-brand btn btn-primary"
+              id="calendar-button"
+              href="#"
+            >
+              Calendário de provas
+            </button>
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a
+                  class="nav-link btn btn-primary pr-5 pl-5"
+                  href="login.html"
+                  title="opção disponível apenas para administradores do site"
+                  >Login</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-12">
+          <table class="table">
+            <caption>
+              Classificação
+            </caption>
+            <thead class="thead-dark">
+              <tr>
+                <th>#</th>
+                <th>Piloto</th>
+                <th>Equipe</th>
+                <th>Pontuação</th>
+              </tr>
+            </thead>
+            <tbody id="info"></tbody>
+          </table>
+
+          <img src="img/loading.gif" id="loading" />
+        </div>
+      </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0/firebase-auth.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
