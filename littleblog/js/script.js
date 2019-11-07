@@ -36,14 +36,16 @@ class firebaseActions {
   }
 
   publicarPost() {
-    var title = $("#post-title").val();
-    var content = $("#post-content").val();
+    var title = $("#post-title");
+    var content = $("#post-content");
     this.table("posts")
       .doc()
       .set({
-        titulo: title,
-        conteudo: content
+        titulo: title.val(),
+        conteudo: content.val()
       });
+    title.val("");
+    content.val("");
   }
 
   async getPosts() {
@@ -248,8 +250,8 @@ async function cadastrarUsuario() {
 async function postComment() {
   userId = Actions.auth.getUid();
   if (userId) {
-    console.log("postando commentário...");
-    makeComent($("#comment-area").val());
+    if ($("#comment-area").val() != "") makeComent($("#comment-area").val());
+    else alert("É necessário escrever alguma coisa antes de comentar");
   } else {
     alert("é necessário estar autenticado para postar um comentario");
     window.location.href = "login.html";
@@ -263,6 +265,8 @@ function showPostDialog() {
 
 function cancelarPost() {
   $("#post").addClass("d-none");
+  $("#post-title").val("");
+  $("#post-content").val("");
 }
 
 async function mountPosts() {
@@ -270,13 +274,15 @@ async function mountPosts() {
   var posts = await Actions.getPosts();
   posts.forEach((i) => {
     postLayout.append(`
-    <div class="col-12 col-md-6">
-          <a href="post.html?postId=${i.id}">
-               <h3>${i.data.titulo}</h3>
-               <p>${i.data.conteudo}</p>
-             </a>
-    </div>
-          `);
+        <div class="card mb-4 col-12 card-post">
+          <div class="card-body">
+            <h2 class="card-title">${i.data.titulo}</h2>
+            <hr/>
+            <p class="card-text">${i.data.conteudo}</p>
+            <a href="post.html?postId=${i.id}" class="btn btn-primary">Ler mais &rarr;</a>
+          </div>
+        </div>
+      `);
   });
 }
 
@@ -322,9 +328,11 @@ function mountPost() {
     .then((query) => {
       query.forEach((doc) => {
         if (postId == doc.id) {
+          document.title = doc.data().titulo;
           postContent = `
-          <section class="col-12 offset-md-1 col-md-10">
+          <section class="col-12">
             <h1>${doc.data().titulo}</h1>
+            <hr>
             <p>${doc.data().conteudo}</p>
           </section>
         `;
@@ -339,6 +347,9 @@ function showDialogAddAdmin() {
 }
 
 function hideDialogAddAdmin() {
+  $("#email").val("");
+  $("#password").val("");
+  $("#password-check").val("");
   $("#admin").addClass("d-none");
 }
 
@@ -367,7 +378,7 @@ async function getPostsOnAdminPage() {
 
   posts.forEach((i) => {
     var html = `
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-3 admin-post">
           <section>
             <h1>${i.data.titulo}</h1>
             <p>${i.data.conteudo}</p>
@@ -381,6 +392,7 @@ async function getPostsOnAdminPage() {
 }
 
 function getPostInfo(postId, element) {
+  $(window).scrollTop(0);
   $("#action").val("edit");
   $("#post-title").val("");
   $("#post-content").val("");
@@ -404,8 +416,20 @@ function setPostData(postId) {
     });
 }
 
-function deletePost(postId) {
+async function deletePost(postId) {
   if (confirm("Deseja realmente apagar esse Post?")) {
+    // antes de apagar o post apaga os comentários daquele post também
+    await Actions.table("comments")
+      .where("post_id", "==", postId)
+      .get()
+      .then((query) => {
+        query.forEach((doc) => {
+          Actions.table("comments")
+            .doc(doc.id)
+            .delete();
+        });
+      });
+
     Actions.table("posts")
       .doc(postId)
       .delete();
@@ -424,7 +448,7 @@ function selectAction() {
 
 function makeComent(text) {
   var commentHTML = `
-         <div class="col-12 offset-md-1 col-md-10 comment bg-primary">
+         <div class="col-12 comment bg-primary">
             <b>${Actions.auth.currentUser.email} says:</b>
             <p class="d-block float-left">
               <img
@@ -446,6 +470,8 @@ function makeComent(text) {
 
   $("#post").append(commentHTML);
   $("textarea").val("");
+
+  $(window).scrollTop($(window).scrollTop() + 500);
 }
 
 function getComments() {
@@ -468,7 +494,7 @@ function getComments() {
     .then((query) => {
       query.forEach((doc) => {
         var commentHTML = `
-         <div class="col-12 offset-md-1 col-md-10 comment bg-primary">
+         <div class="col-12 comment bg-primary">
             <b>${doc.data().email} says:</b>
             <p class="d-block float-left">
               <img

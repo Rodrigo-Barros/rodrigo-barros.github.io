@@ -16,7 +16,7 @@ gulp.task("watch", function() {
     }
   });
 
-  gulp.watch(["*.less", "*.html", "*.js"], gulp.series("less")).on("change", function() {
+  gulp.watch(["*.less", "*.html"], gulp.series("less")).on("change", function() {
     browserSync.reload();
   });
 

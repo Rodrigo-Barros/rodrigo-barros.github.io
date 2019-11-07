@@ -9,7 +9,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light">
-      <a href="#" class="navbar-brand">Painel Admin</a>
+      <a href="javascript:void(0)" class="navbar-brand">Painel Admin</a>
 
       <button class="navbar-toggler" data-target="#collapseMenu" data-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
@@ -17,23 +17,23 @@
 
       <div class="collapse navbar-collapse" id="collapseMenu">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a href="#" class="nav-link" onclick="showPostDialog()">Novo Post</a>
+          <li class="nav-item"><a class="nav-link" href="/littleblog">Home</a></li>
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link" onclick="showPostDialog()">Novo Post</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" onclick="showDialogAddAdmin()">Novo Administrador</a>
           </li>
-          <li class="nav-item"><a class="nav-link" href="#">Editar Posts</a></li>
         </ul>
+        <ul class="navbar-nav mr-auto"></ul>
+        <button type="button" class="btn btn-danger" onclick="logoutAdmin()">Sair</button>
       </div>
-
-      <button type="button" class="btn btn-danger" onclick="logoutAdmin()">Sair</button>
     </nav>
 
     <div class="container">
       <div class="row" id="posts-node">
         <!-- Post form -->
-        <div class="offset-md-2 col-12 col-md-8 d-none" id="post">
+        <div class="col-12 d-none mb-3" id="post">
           <label for="post-title">Titulo:</label>
           <input
             id="post-title"
@@ -54,14 +54,14 @@
               class="btn btn-primary pr-5 pl-5 float-left"
               onclick="selectAction()"
             >
-              publicar
+              Publicar
             </button>
             <button
               type="button"
               class="btn btn-danger pr-5 pl-5 float-right"
               onclick="cancelarPost()"
             >
-              cancelar
+              Cancelar / Fechar
             </button>
 
             <input type="hidden" id="action" value="set" />
@@ -70,7 +70,7 @@
 
         <!-- Admin form -->
 
-        <div class="col-12 offset-md-2 col-md-8 d-none" id="admin">
+        <div class="col-12 d-none mb-3" id="admin">
           <label for="email">Email:</label>
           <input type="text" id="email" placeholder="Insira seu email aqui" class="form-control" />
 
@@ -101,7 +101,7 @@
               class="btn btn-danger float-right pl-5 pr-5"
               onclick="hideDialogAddAdmin()"
             >
-              Cancelar
+              Cancelar / Fechar
             </button>
           </div>
         </div>

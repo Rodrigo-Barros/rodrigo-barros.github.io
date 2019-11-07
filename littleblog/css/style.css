@@ -32,7 +32,7 @@ body {
   background: #fff;
   border-radius: 50%;
   margin-right: 15px;
-  width: 10%;
+  max-width: 5%;
   position: relative;
   top: 25%;
 }
@@ -43,7 +43,45 @@ body {
 #post input {
   margin-left: -15px;
 }
+#post p {
+  font-size: 20px;
+  text-align: justify;
+}
+#post .img-post {
+  display: block;
+  margin: 15px auto;
+  max-width: 100%;
+}
+#posts-node img {
+  display: block;
+  margin: 15px auto;
+  max-width: 100%;
+}
+.card-post p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.admin-post {
+  border: 0.5px solid rgba(32, 30, 0, 0.5);
+  border-radius: 15px;
+  padding: 15px;
+}
+.admin-post p {
+  overflow: hidden;
+  font-size: 1.15em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
 textarea {
   margin-left: -15px;
-  width: calc(100% + 30px);
+}
+.contact-form {
+  top: 12.5vh;
+}
+.contact-form textarea {
+  margin: 0;
+  width: calc(100%) !important;
 }
