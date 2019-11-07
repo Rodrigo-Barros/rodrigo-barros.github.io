@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a href="#" class="navbar-brand">Painel Admin</a>
+
+      <button class="navbar-toggler" data-target="#collapseMenu" data-toggle="collapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="collapseMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a href="#" class="nav-link" onclick="showPostDialog()">Novo Post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showDialogAddAdmin()">Novo Administrador</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#">Editar Posts</a></li>
+        </ul>
+      </div>
+
+      <button type="button" class="btn btn-danger" onclick="logoutAdmin()">Sair</button>
+    </nav>
+
+    <div class="container">
+      <div class="row" id="posts-node">
+        <!-- Post form -->
+        <div class="offset-md-2 col-12 col-md-8 d-none" id="post">
+          <label for="post-title">Titulo:</label>
+          <input
+            id="post-title"
+            type="text"
+            placeholder="Insira o titulo do seu Post aqui"
+            class="form-control mb-3"
+          />
+          <label for="post-content">Conteúdo do Post</label>
+          <textarea
+            rows="10"
+            id="post-content"
+            class="form-control mb-3"
+            placeholder="insira o conteúdo do seu post aqui"
+          ></textarea>
+          <div class="form-group">
+            <button
+              type="button"
+              class="btn btn-primary pr-5 pl-5 float-left"
+              onclick="selectAction()"
+            >
+              publicar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger pr-5 pl-5 float-right"
+              onclick="cancelarPost()"
+            >
+              cancelar
+            </button>
+
+            <input type="hidden" id="action" value="set" />
+          </div>
+        </div>
+
+        <!-- Admin form -->
+
+        <div class="col-12 offset-md-2 col-md-8 d-none" id="admin">
+          <label for="email">Email:</label>
+          <input type="text" id="email" placeholder="Insira seu email aqui" class="form-control" />
+
+          <label for="password">Senha:</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Insira sua senha aqui"
+            class="form-control mb-3"
+          />
+          <input
+            type="password"
+            id="password-check"
+            placeholder="Digite sua senha novamente"
+            class="form-control mb-3"
+          />
+
+          <div class="form-group">
+            <button
+              type="button"
+              class="btn btn-primary float-left pl-5 pr-5"
+              onclick="cadastrarAdmin()"
+            >
+              Cadastrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger float-right pl-5 pr-5"
+              onclick="hideDialogAddAdmin()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer></footer>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

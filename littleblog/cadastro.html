@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cadastro de usário</title>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <form class="form-center-vertical">
+            <label for="email" type="email">Email:</label>
+            <input
+              class="form-control"
+              type="email"
+              placeholder="Digite seu Email"
+              id="email"
+              required
+            />
+
+            <label for="senha">Senha:</label>
+            <input
+              class="form-control"
+              type="password"
+              id="senha"
+              placeholder="Digite sua senha"
+              required
+              pattern=".{3,}"
+              title="a senha precisa ter no minímo 6 caracteres"
+            />
+
+            <label for="senha-check">Repita sua senha</label>
+            <input
+              class="form-control mb-3"
+              type="password"
+              placeholder="Digite sua senha"
+              id="senha-check"
+              required
+              pattern=".{6,}"
+              title="a senha precisa ter no minímo 6 caracteres"
+            />
+
+            <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+    <script src="js/jquery.min.js" charset="utf-8"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

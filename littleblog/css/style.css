@@ -1,0 +1,49 @@
+@media (max-width: 576px) {
+  /* dashboard mobile */
+  button.float-left,
+  button.float-right {
+    float: left;
+    display: block;
+    margin-bottom: 15px;
+  }
+}
+@media (min-width: 992px) {
+  .form-center-vertical {
+    margin-top: 25vh;
+  }
+}
+body {
+  margin-bottom: 20px;
+}
+.comment {
+  /*min-height: 150px;*/
+  margin-bottom: 15px;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+.comment p {
+  margin-top: 10px;
+  float: right;
+  width: 100%;
+  text-align: justify;
+  top: 25%;
+}
+.comment img {
+  background: #fff;
+  border-radius: 50%;
+  margin-right: 15px;
+  width: 10%;
+  position: relative;
+  top: 25%;
+}
+.comment b {
+  margin-top: 10px;
+  display: block;
+}
+#post input {
+  margin-left: -15px;
+}
+textarea {
+  margin-left: -15px;
+  width: calc(100% + 30px);
+}
