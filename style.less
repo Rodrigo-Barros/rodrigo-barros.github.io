@@ -1,0 +1,117 @@
+@container-width:     75%;
+@aside-menu-width:    25%;
+@aside-buttons-color: blue; 
+@aside-background:    #3681dd;
+.container{
+  margin-left:25%;
+  width:@container-width;
+}
+
+aside{
+  height:100vh;
+  width:@aside-menu-width;
+  position:fixed;
+  left:0;
+  top:0;
+  background:@aside-background;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  animation: slide-down 2s;
+  ul{
+    margin-top: 25vh;
+    padding:0;
+    li{
+      list-style:none; 
+      margin-bottom: 15px;
+      animation: slide-left 4s;
+      a{
+        text-decoration:none;
+        font-size: 17px;
+        color:white;
+        padding: 15px 0;
+        display: block;
+        background: @aside-buttons-color;
+        text-align:center;
+      }
+      a:hover{
+        background:red;
+        border-radius: 50px;
+        transition: 1s;
+        text-decoration:none;
+        color:white;
+      }
+    }
+  }
+
+}
+
+/* só aplicar esse estilo quando o site estiver finalizado*/
+/*body{
+  overflow-x:hidden;
+}*/
+
+#projetos{
+  animation: slide-left 2s;
+  /*height: 100vh;*/
+}
+
+#sobre{
+  animation: slide-right 2s;
+/*  height: 100vh;
+  background: blue;
+  color: white;
+  border-top-left-radius: 30px;*/
+}
+
+#experiencia{
+  animation: slide-right 2s;
+/*  height: 100vh;
+  background: red;
+  color: white;
+  border-top-left-radius: 30px;*/
+}
+
+#blog{
+  animation: slide-left 2s;
+  height: 100vh;
+}
+
+nav{
+  animation: slide-left 2s;
+}
+
+@keyframes slide-down{
+  from { position:absolute; left:0; top: -100vh; }
+  to { position:absolute; left:0; top:0;}
+}
+
+@keyframes slide-left{
+  from { margin-left: 75vw; }
+  to { margin-left:0; }
+}
+
+@keyframes slide-right{
+  from { margin-left: -100vw; }
+  to { margin-left:0; }
+}
+
+@media (max-width: 900px){
+  aside{
+    display:none;
+  }
+  .container{
+    margin-left:auto;
+    width: 100%;
+  }
+}
+
+
+#projetos{
+  height: 100vh;
+}
+
+@media (min-width: 901px){
+  nav{
+    display:none !important;
+  }
+}

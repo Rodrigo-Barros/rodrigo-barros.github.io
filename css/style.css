@@ -1,129 +1,114 @@
-*{margin: 0;padding: 0;}
-
-/* Login Page */
-
-.login-form{
-  border-radius: 10px;
-  background: gray;
-  height: 250px;
-  top:50%;
-  margin-top: -125px;
-  left: 50%;
-  margin-left: -250px;
-  position: absolute;
-  width: 500px;
+.container {
+  margin-left: 25%;
+  width: 75%;
 }
-
-.login-form input, .login-form label,
-.login-form button{
-  border:none;
+aside {
+  height: 100vh;
+  width: 25%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: #3681dd;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  animation: slide-down 2s;
+}
+aside ul {
+  margin-top: 25vh;
+  padding: 0;
+}
+aside ul li {
+  list-style: none;
+  margin-bottom: 15px;
+  animation: slide-left 4s;
+}
+aside ul li a {
+  text-decoration: none;
+  font-size: 17px;
+  color: white;
+  padding: 15px 0;
   display: block;
-  font-size: 25px;
-  height: 30px;
-  margin-left: 5%;
-  padding: 10px 0;
-  width: 90%;
+  background: blue;
+  text-align: center;
 }
-
-.login-form button{
-  font-size: 14px;
-  border: none;
-  margin-top: 10px;
-  padding: 10px 0;
+aside ul li a:hover {
+  background: red;
+  border-radius: 50px;
+  transition: 1s;
+  text-decoration: none;
+  color: white;
 }
-
-.login-form button:hover{
-  background:blue;
-  color:#fff;
+/* só aplicar esse estilo quando o site estiver finalizado*/
+/*body{
+  overflow-x:hidden;
+}*/
+#projetos {
+  animation: slide-left 2s;
+  /*height: 100vh;*/
 }
-
-a{text-decoration: none;}
-
-.top-menu{
-  height: 50px;
-  background: green;
+#sobre {
+  animation: slide-right 2s;
+  /*  height: 100vh;
+  background: blue;
+  color: white;
+  border-top-left-radius: 30px;*/
 }
-
-.top-menu-left{
-  float:left;
-  margin-left: 15px;
+#experiencia {
+  animation: slide-right 2s;
+  /*  height: 100vh;
+  background: red;
+  color: white;
+  border-top-left-radius: 30px;*/
 }
-
-.top-menu-right{
-  float:right;
-  margin-right: 15px;
+#blog {
+  animation: slide-left 2s;
+  height: 100vh;
 }
-.top-menu li{
-  display: inline-block;
-  margin-top: 12.5px;
+nav {
+  animation: slide-left 2s;
 }
-
-.top-menu li a:visited{
-  color: #fff;
+@keyframes slide-down {
+  from {
+    position: absolute;
+    left: 0;
+    top: -100vh;
+  }
+  to {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }
-
-.top-menu li:hover{
-  padding-bottom: 5px;
-  border-bottom: 2px solid #fff;
+@keyframes slide-left {
+  from {
+    margin-left: 75vw;
+  }
+  to {
+    margin-left: 0;
+  }
 }
-
-.right{
-  float: right;
-  margin-right: 15px;
+@keyframes slide-right {
+  from {
+    margin-left: -100vw;
+  }
+  to {
+    margin-left: 0;
+  }
 }
-
-.guide-div{
-  margin:0 auto;
-  width: 90%;
-}
-
-.title{
-  color: #000;
-  margin-bottom: 15px;
-  margin-left: 15px;
-  margin-top:20px;
-}
-
-.text{
-  margin-left: 15px;
-  margin-top:20px;
-}
-
-.list{
-  margin-bottom: 15px;
-  margin-left: 30px;
-  margin-top: 15px;
-}
-
-.jobs figure{
-  position: relative;
-  float: left;
-  margin-left: 3%;
-  width: 30%;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-@media (max-width:768px){
-  .jobs figure{
+@media (max-width: 900px) {
+  aside {
+    display: none;
+  }
+  .container {
+    margin-left: auto;
     width: 100%;
   }
 }
-
-.jobs img{
-  width: 100%;
-  height: 250px;
+#projetos {
+  height: 100vh;
 }
-
-.jobs figure:hover figcaption{
-  background: blue;
-}
-
-.jobs figure:hover{
-  outline: 2px solid blue;
-}
-.jobs figcaption{
-  text-align:center;
-  padding: 10px;
-  background: green;
+@media (min-width: 901px) {
+  nav {
+    display: none !important;
+  }
 }

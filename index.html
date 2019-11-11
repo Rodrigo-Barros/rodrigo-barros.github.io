@@ -1,24 +1,92 @@
 <!DOCTYPE html>
-<html lang="pt-br" dir="ltr">
+<html>
   <head>
-    <meta charset="utf-8">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Página</title>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
   </head>
   <body>
-    <form class="login-form" action="index.html" method="post">
-      <label for="nome">Nome:</label>
-      <input id="nome" type="text" placeholder="Login">
+    <nav class="navbar navbar-expand navbar-light">
+      <a href="#" class="navbar-brand">Rodrigo Barros</a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="#" class="nav-link">Sobre</a></li>
+        <li class="nav-item"><a href="#projetos" class="nav-link">Projetos</a></li>
+        <li class="nav-item"><a href="#outro-link" class="nav-link">Blog</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Experiência</a></li>
+        <li class="nav-item">
+          <a href="mailto:rodrigogcbarros@gmail.com" class="nav-link">Contato</a>
+        </li>
+      </ul>
+    </nav>
 
-      <label for="senha">Senha:</label>
-      <input id="senha" type="password" placeholder="Senha">
+    <main class="container">
+      <aside>
+        <ul>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Projetos</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Experiência</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </aside>
+      <div class="row">
+        <div class="col-12" id="sobre">
+          <h1>Um pouco sobre mim</h1>
+          <p class="text-justify">
+            Bem minha História com tecnologia propriamente dita se inicia desde muito cedo, acredito
+            que quando ganhei meu primeiro computador em torno da 7ª ou 8ª série, após pouco tempo
+            percebi que já sabia muito mais sobre computadores que muitas pessoas que tinham mais
+            tempo de uso do equipamento que eu, mas só fui adquirir um real interesse por
+            programação propriamente dita quando uma dia um amigo meu queria construir um site para
+            exibir estátisticas de um jogo e para isso ele consumia uma api, porém no meio do
+            desenvolvimento ele encontrou dificuldades no desenvolvimento, decidi então ajudá-ló e a
+            partir desse dia começamos a desenvolver nosso site em PHP com MySQL, desde então meu
+            interesse po tecnologia só foi aumentando.
+          </p>
+        </div>
 
-      <button type="button" onclick="loginAdmin()">Enviar</button>
-    </form>
+        <div id="projetos" class="col-12">
+          <h1 class="text-right">Projetos</h1>
+          <p>Alguns de meus projetos podem ser vistos nos links a seguir</p>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <a href="#">
+                <div class="card">
+                  <img src="http://amphibian.com/images/generic_frog_jump_2.svg" alt="" />
+                  <div class="card-footer">
+                    <p>Blog que eu mantenho para publicar o que eu ando fazendo :)</p>
+                  </div>
+                </div>
+              </a>
+            </div>
 
-    <script src="js/md5.min.js" charset="utf-8"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
-    <script src="js/firebase.config.js" charset="utf-8"></script>
-    <script src="js/firebase.js" charset="utf-8"></script>
+            <div class="col-12 col-md-6">
+              <a href="#">
+                <div class="card">
+                  <img src="http://amphibian.com/images/generic_frog_jump_2.svg" alt="" />
+                  <div class="card-footer">
+                    <p>Blog que eu mantenho para publicar o que eu ando fazendo :)</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="experiencia" class="col-12">
+          <h1>Experiência</h1>
+          <p></p>
+        </div>
+
+        <div id="blog" class="col-12">
+          <h1 class="text-right">Blog</h1>
+          <p></p>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/bootstrap.js" charset="utf-8"></script>
+    <script src="js/jquery-3.4.1.min.js" charset="utf-8"></script>
   </body>
 </html>
