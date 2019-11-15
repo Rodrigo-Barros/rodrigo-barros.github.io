@@ -83,7 +83,7 @@ function showPass() {
 
 // classificação na página inicial
 function mountTable() {
-  Actions.refTable("drivers")
+  Actions.refTable("demo")
     .orderByChild("pontuacao")
     .once("value", function(data) {
       // esconde a imagem ao finalizar o request do banco de dados
@@ -111,7 +111,7 @@ function mountTable() {
 //classficacão na página do Admin
 function mountTableDash() {
   var colocacao = 0;
-  Actions.refTable("drivers")
+  Actions.refTable("demo")
     .once("value")
     .then(function(data) {
       // esconde a imagem ao finalizar o request do banco de dados
@@ -170,7 +170,7 @@ function addDriver() {
   equipe = $("#equipe").val();
   pontuacao = $("#pontuacao").val();
   if (formAction == "create") {
-    Actions.refTable("drivers").push({
+    Actions.refTable("demo").push({
       nome: nome,
       equipe: equipe,
       pontuacao: pontuacao
@@ -179,7 +179,7 @@ function addDriver() {
     $("#equipe").val("");
     $("#pontuacao").val("");
   } else {
-    Actions.refTable("drivers/", driver_id).set({
+    Actions.refTable("demo/", driver_id).set({
       nome: nome,
       equipe: equipe,
       pontuacao: pontuacao
@@ -204,7 +204,7 @@ function editDriver(id_driver, element) {
 
 function deleteDriver(id_driver, element) {
   element.parentElement.parentElement.innerHTML = "";
-  Actions.refTable("drivers", id_driver).set(null);
+  Actions.refTable("demo", id_driver).set(null);
 }
 
 function orderArray(array) {
