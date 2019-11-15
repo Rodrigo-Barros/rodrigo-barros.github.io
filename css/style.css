@@ -3,6 +3,7 @@
   width: 75%;
 }
 aside {
+  z-index: 1;
   height: 100vh;
   width: 25%;
   position: fixed;
@@ -23,6 +24,8 @@ aside ul li {
   animation: slide-left 4s;
 }
 aside ul li a {
+  z-index: 0;
+  transition: 1s;
   text-decoration: none;
   font-size: 17px;
   color: white;
@@ -42,27 +45,66 @@ aside ul li a:hover {
 /*body{
   overflow-x:hidden;
 }*/
-#projetos {
-  animation: slide-left 2s;
-  /*height: 100vh;*/
-}
 #sobre {
+  z-index: 2;
   animation: slide-right 2s;
-  /*  height: 100vh;
-  background: blue;
-  color: white;
-  border-top-left-radius: 30px;*/
+  min-height: 100vh;
+  background: #3681dd;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+#projetos {
+  display: none;
+  animation: slide-left 2s;
+  min-height: 100vh;
+  background: #FFF;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
 #experiencia {
+  z-index: 0;
+  display: none;
   animation: slide-right 2s;
-  /*  height: 100vh;
-  background: red;
-  color: white;
-  border-top-left-radius: 30px;*/
+  min-height: 100vh;
+  background: #DEA235;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
 #blog {
   animation: slide-left 2s;
-  height: 100vh;
+  min-height: 100vh;
+  background: white;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.wrapper-panel {
+  min-height: 100vh;
+  width: 100%;
+}
+.text-alignv {
+  margin-top: calc(25vh - 2.5em);
+}
+.text-modern {
+  line-height: 35px;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.text-modern-medium {
+  line-height: 20px;
+  font-size: 17px;
+  font-weight: 700;
+}
+.text-decoration-none {
+  text-decoration: none;
+}
+.text-decoration-none h5 {
+  color: black;
+}
+.paragraph {
+  text-indent: 20px;
 }
 nav {
   animation: slide-left 2s;
@@ -95,7 +137,19 @@ nav {
     margin-left: 0;
   }
 }
-@media (max-width: 900px) {
+/* start mobile */
+@media (max-width: 959px) {
+  #sobre {
+    transition: 2s;
+    border-radius: 30px;
+  }
+  #experiencia {
+    transition: 2s;
+    border-radius: 30px;
+  }
+  img {
+    max-width: 100%;
+  }
   aside {
     display: none;
   }
@@ -104,11 +158,12 @@ nav {
     width: 100%;
   }
 }
-#projetos {
-  height: 100vh;
-}
-@media (min-width: 901px) {
+/* end mobile */
+@media (min-width: 960px) {
   nav {
     display: none !important;
   }
+}
+#mailtoui-button-copy {
+  width: 130px;
 }
