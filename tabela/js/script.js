@@ -116,14 +116,22 @@ function mountTableDash() {
     .then(function(data) {
       // esconde a imagem ao finalizar o request do banco de dados
       $("#loading").css("display", "none");
-      drivers = orderArray(data.val());
+      driversData = [];
+      var index = 0;
       for (i in data.val()) {
-        for (j = 0; j < drivers.length; j++) {
-          if (data.val()[i]["pontuacao"] == drivers[j]["pontuacao"]) {
-            drivers[j]["pk"] = i;
-          }
-        }
+        driversData.push(data.val()[i]);
+        driversData[index]["pk"] = i;
+        console.log(driversData);
+        index++;
+        //console.log(i);
+        //for (j = 0; j < drivers.length; j++) {
+        //  if (data.val()[i]["pontuacao"] == drivers[j]["pontuacao"]) {
+        //    drivers[j]["pk"] = i;
+        //  }
+        //}
       }
+      drivers = orderArray(driversData);
+
       drivers.forEach(function(i) {
         text = `<tr>
                   <td>${(colocacao += 1)}</td>
@@ -207,17 +215,19 @@ function deleteDriver(id_driver, element) {
   Actions.refTable("demo", id_driver).set(null);
 }
 
-function orderArray(array) {
+function orderArray(array, id = "undefined") {
   sort_array = [];
   obj_array = Object.values(array);
   index = 0;
   obj_array.forEach(function(i) {
     sort_array.push(i.pontuacao);
+    if (id != "undefined") i.pk = id;
   });
   sort_array.sort(function(a, b) {
     return b - a;
   });
-  return searchArray(obj_array, sort_array);
+
+  return new Set(searchArray(obj_array, sort_array));
 }
 
 function searchArray(arr, value) {

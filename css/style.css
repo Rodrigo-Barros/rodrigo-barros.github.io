@@ -61,6 +61,9 @@ aside ul li a:hover {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
 }
+#projetos img {
+  max-width: 100%;
+}
 #experiencia {
   z-index: 0;
   display: none;
