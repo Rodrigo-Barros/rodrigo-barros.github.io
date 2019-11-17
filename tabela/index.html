@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>tabela de classificação da liga F3</title>
+    <title>tabela de classificação da liga F1</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -116,6 +116,37 @@
           <img src="img/loading.gif" id="loading" />
         </div>
       </div>
+
+      <!-- modal -->
+
+      <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Bem vindo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Olá seja bem-vindo visitante.</p>
+              <p>
+                Para testar o painel administrativo é necessário clicar no botão de login e informar
+                os seguintes dados:
+              </p>
+              <ul>
+                <li>Email: email@domain.com</li>
+                <li>Senha: tabelaf1</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- end modal -->
     </div>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
@@ -126,6 +157,7 @@
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"
     ></script>
+    <script src="js/bootstrap.js" charset="utf-8"></script>
     <script src="js/script.js"></script>
   </body>
 </html>

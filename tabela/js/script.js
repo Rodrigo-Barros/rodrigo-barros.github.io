@@ -21,16 +21,11 @@ class firebaseActions {
       this.page == "index.html#" ||
       this.page == "dashboard.html" ||
       this.page == "dashboard.html#" ||
-      this.page == ""
+      this.page == "" ||
+      this.page == "index.html?auth=true"
     )
       this.DB = firebase.database();
     this.Auth = firebase.auth();
-  }
-
-  createUser(email, password) {
-    this.Auth.createUserWithEmailAndPassword(email, password).catch((error) => {
-      console.log(error);
-    });
   }
 
   loginAdmin() {
@@ -247,8 +242,11 @@ switch (page) {
   case "":
   case "index.html":
   case "#":
+  case "index.html?auth=true":
     mountTable();
     datePassed();
+    if (getUrlVars().auth == "true") $(".modal").modal("show");
+
     break;
   case "dashboard.html":
   case "dashboard.html#":
@@ -358,4 +356,12 @@ function datePassed() {
       return false;
     }
   });
+}
+
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+    vars[key] = value;
+  });
+  return vars;
 }

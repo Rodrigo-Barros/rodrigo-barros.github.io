@@ -284,6 +284,7 @@ async function mountPosts() {
         </div>
       `);
   });
+  hideContentOnHomePage();
 }
 
 function logoutAdmin() {
@@ -391,6 +392,19 @@ async function getPostsOnAdminPage() {
   });
 }
 
+function hideContentOnHomePage() {
+  $("#posts-node")
+    .children(".card-post")
+    .each(function(a, b) {
+      $(this)
+        .find(".card-body")
+        .children()
+        .each(function() {
+          if ($(this).attr("homepage-show") == "false") $(this).css("display", "none");
+        });
+    });
+}
+
 function getPostInfo(postId, element) {
   $(window).scrollTop(0);
   $("#action").val("edit");
@@ -398,7 +412,11 @@ function getPostInfo(postId, element) {
   $("#post-content").val("");
   var postInfo = element.parentNode.children[0].children;
   var postTitle = postInfo[0].innerHTML;
-  var postContent = postInfo[1].innerHTML;
+  var postContent = $(element)
+    .parent()
+    .find("section")
+    .html()
+    .replace(/<h1>(.*?)<\/h1>/gi, "");
 
   $("#post-title").val(postTitle);
   $("#post-content").val(postContent);
