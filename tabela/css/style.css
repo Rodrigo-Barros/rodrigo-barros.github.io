@@ -49,6 +49,7 @@ caption {
   animation-fill-mode: forwards;
 }
 
+
 .fade-in-table {
   animation: fade-in-table;
   animation-duration: 3s;
@@ -117,6 +118,7 @@ caption {
 }
 #calendar-button{
   margin:0;
+  z-index:1;
 }
 
 .calendar {
@@ -141,5 +143,8 @@ caption {
     bottom: 10px;
     left: 50%;
     margin-left: -107.5px;
+  }
+  .table{
+    margin-bottom:60px;
   }
 }

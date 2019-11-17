@@ -261,6 +261,7 @@ switch (page) {
 }
 
 function toogleCalendar() {
+  $(window).scrollTop(0);
   if ($("#calendar").css("display") == "none") {
     $("#calendar").css("display", "block");
     $("#calendar").removeClass("fade-in fade-out");
