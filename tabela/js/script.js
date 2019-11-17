@@ -22,7 +22,8 @@ class firebaseActions {
       this.page == "dashboard.html" ||
       this.page == "dashboard.html#" ||
       this.page == "" ||
-      this.page == "index.html?auth=true"
+      this.page == "index.html?auth=true" ||
+      this.page == "?auth=true"
     )
       this.DB = firebase.database();
     this.Auth = firebase.auth();
@@ -243,6 +244,7 @@ switch (page) {
   case "index.html":
   case "#":
   case "index.html?auth=true":
+  case "?auth=true":
     mountTable();
     datePassed();
     if (getUrlVars().auth == "true") $(".modal").modal("show");
@@ -259,6 +261,7 @@ switch (page) {
 }
 
 function toogleCalendar() {
+  $(window).scrollTop(0);
   if ($("#calendar").css("display") == "none") {
     $("#calendar").css("display", "block");
     $("#calendar").removeClass("fade-in fade-out");
