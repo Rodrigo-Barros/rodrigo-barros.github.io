@@ -414,9 +414,10 @@ function getPostInfo(postId, element) {
   var postTitle = postInfo[0].innerHTML;
   var postContent = $(element)
     .parent()
-    .find("section")
+    .find("*")
     .html()
-    .replace(/<h1>(.*?)<\/h1>/gi, "");
+    .replace(/<h1>(.*?)<\/h1>|<p>\s*<\/p>|\s(\s)/gi, "")
+    .replace(/^\s(\s)|\s{2}$/g, "");
 
   $("#post-title").val(postTitle);
   $("#post-content").val(postContent);
