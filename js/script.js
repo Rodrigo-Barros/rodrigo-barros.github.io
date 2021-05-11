@@ -42,8 +42,10 @@ const addTransition = (heightRatio,sections) => {
     transitionCount++;
     timer(.1, ()=>{
       sections[2].style.display="inherit";
-      sections[3].style.display="none";
     });
+    timer(.5,()=>{
+    sections[3].style.display="none";
+    })
   }
 };
 
