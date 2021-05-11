@@ -1,6 +1,0 @@
-* Portfolio
-  - [-] FrontEnd [1/4]
-        - [X] Fazer o esqueleto do site
-        - [ ] Fazer a estilização do site
-        - [ ] Pensar nos textos para serem escritos para o portfolio
-        - [ ] Pensar em alguma/algum interatividade/diferencial para o site

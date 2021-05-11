@@ -1,172 +1,229 @@
-.container {
-  margin-left: 25%;
-  width: 75%;
+/* reset styles */
+body {
+  margin:0;
+  padding:0;
 }
-aside {
-  z-index: 1;
-  height: 100vh;
+
+a {
+  text-decoration: none;
+}
+
+li a{
+  font-size: 17px;
+}
+
+/* end resets styles */
+
+html { 
+  scroll-behavior: smooth; 
+  overflow-x: hidden;
+} /* smooth scrool */ 
+
+.flex-container {
+  display:flex;
+  flex-direction: column;
+}
+
+.left {
   width: 25%;
-  position: fixed;
-  left: 0;
-  top: 0;
   background: #3681dd;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-  animation: slide-down 2s;
+  min-height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  animation: slide_right .7s;
+  transition: .7s;
 }
-aside ul {
-  margin-top: 25vh;
+
+  .name { 
+    padding: 15px 0;
+    color:#fff; 
+    text-align: center; 
+    width: 80%;
+    font-size: 1.9em;
+    margin : 15px auto;
+    border-bottom: 0.5px solid rgba(255,255,255,0.3);
+    border-top: 0.5px solid rgba(255,255,255,0.3);
+    animation: fadein 3s;
+  }
+
+/* remove spaces from ul an li only left div */
+.left ul, .left li{
+  list-style-type: none;
+  margin: 0;
   padding: 0;
 }
-aside ul li {
-  list-style: none;
-  margin-bottom: 15px;
-  animation: slide-left 4s;
-}
-aside ul li a {
-  z-index: 0;
-  transition: 1s;
-  text-decoration: none;
-  font-size: 17px;
-  color: white;
-  padding: 15px 0;
+
+.left ul li a {
   display: block;
-  background: blue;
+  padding: 10px 5px;
   text-align: center;
+  color: #fff;
+  background: #0000ff;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
-aside ul li a:hover {
-  background: red;
-  border-radius: 50px;
-  transition: 1s;
-  text-decoration: none;
-  color: white;
+
+.left a:hover {
+  color: #000;
+  background: yellow;
+  border-radius: 25px;
+  transition: .7s;
 }
-/* só aplicar esse estilo quando o site estiver finalizado*/
-/*body{
-  overflow-x:hidden;
-}*/
-#sobre {
-  z-index: 2;
-  animation: slide-right 2s;
-  min-height: 100vh;
-  background: #3681dd;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
-#projetos {
-  display: none;
-  animation: slide-left 2s;
-  min-height: 100vh;
-  background: #FFF;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
-#projetos img {
-  max-width: 100%;
-}
-#experiencia {
-  z-index: 0;
-  display: none;
-  animation: slide-right 2s;
-  min-height: 100vh;
-  background: #DEA235;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
-#blog {
-  animation: slide-left 2s;
-  min-height: 100vh;
-  background: white;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
-.wrapper-panel {
-  min-height: 100vh;
+
+.left .site-content {
   width: 100%;
 }
-.text-alignv {
-  margin-top: calc(25vh - 2.5em);
+
+.left .external-content{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
-.text-modern {
+
+.right {
+  width: 75%;
+  margin-left: 25%;
+}
+
+  .projects {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+  }
+
+  .projects figure {
+    margin: 0;
+  }
+
+  .projects .card {
+    border: 0.5px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding:5px 0;
+    width: 49%;
+    margin-bottom: 20px;
+    color: #00f;
+    background: #fff;
+  }
+
+  #projects a{
+    color: #4C4015;
+  }
+  .projects .card img {
+      max-width: 100%; 
+  }
+
+  .projects .card p {
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 0.5px solid rgba(0,0,0,0.1);
+    margin-bottom: 5px;
+  }
+
+  .projects .card figcaption {
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  .title {
+    font-size: 20px;
+    text-indent: 15px;
+  }
+
+.right section p {
   line-height: 35px;
   font-size: 20px;
-  font-weight: bold;
-  font-style: italic;
-  margin-left: 15px;
-  margin-right: 15px;
+  text-indent: 15px;
+  text-align: justify;
+  margin: 0 10px;
 }
-.text-modern-medium {
-  line-height: 20px;
-  font-size: 17px;
-  font-weight: 700;
+
+
+.right section{
+  display:none;
+  visibility:hidden;
+  padding:0 10px;
+  min-height: 100vh;
+  margin: 0;
+  width: calc(100% - 20px);
 }
-.text-decoration-none {
-  text-decoration: none;
+
+.right section:nth-child(even){
+  animation: slide_right .65s;
+  background: #2FBCF5;
 }
-.text-decoration-none h5 {
-  color: black;
+
+.right section:nth-child(odd){
+  background: #efeffe;
+  opacity: 0;
+  animation: slide_left .7s forwards;
 }
-.paragraph {
-  text-indent: 20px;
+
+.right section h4 {
+  margin: 0;
+  padding: 20px 0;
 }
-nav {
-  animation: slide-left 2s;
+
+.right ul li {
+  font-size: 20px;
+  margin-bottom: 3px;
 }
-@keyframes slide-down {
+
+.right .text-center{
+  text-align:center;
+}
+
+/* transition */
+@keyframes slide_right{
   from {
-    position: absolute;
-    left: 0;
-    top: -100vh;
-  }
-  to {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-}
-@keyframes slide-left {
-  from {
-    margin-left: 75vw;
+    margin-left: -125%;
   }
   to {
     margin-left: 0;
   }
 }
-@keyframes slide-right {
+
+@keyframes slide_left{
   from {
-    margin-left: -100vw;
+    margin-left: 100%;
+    opacity:0;
   }
   to {
     margin-left: 0;
+    opacity:1;
   }
 }
-/* start mobile */
-@media (max-width: 959px) {
-  #sobre {
-    transition: 2s;
-    border-radius: 30px;
+
+@keyframes fadein {
+  from {
+    opacity: 0;
   }
-  #experiencia {
-    transition: 2s;
-    border-radius: 30px;
+  to{
+    opacity: 1;
   }
-  img {
-    max-width: 100%;
+}
+
+
+/* mobile layout */
+@media (max-width:800px){
+  .left {
+    display:none;
   }
-  aside {
-    display: none;
-  }
-  .container {
-    margin-left: auto;
+  .right {
     width: 100%;
+    margin: 0;
+    transition: .7s;
   }
-}
-/* end mobile */
-@media (min-width: 960px) {
-  nav {
-    display: none !important;
+    .projects { flex-direction: column; }
+    .projects .card{ width:100%; transition: .7s;}
+  
+  .right section{
+    height:100%;
   }
-}
-#mailtoui-button-copy {
-  width: 130px;
+
+  /*.right section  h4:nth-child(1) {
+    margin: 50px 0;
+  }*/
 }

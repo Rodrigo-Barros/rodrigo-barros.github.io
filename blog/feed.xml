@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="http://rodrigo-barros.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rodrigo-barros.github.io/blog/" rel="alternate" type="text/html" /><updated>2021-05-11T17:00:03-03:00</updated><id>http://rodrigo-barros.github.io/blog/feed.xml</id><title type="html">Little Blog</title><subtitle>Um pequeno Blog dedicado as minhas aventuras no mundo do tecnologia.</subtitle><entry><title type="html">Configurando um servidor Matrix!!</title><link href="http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/" rel="alternate" type="text/html" title="Configurando um servidor Matrix!!" /><published>2021-01-28T23:13:00-03:00</published><updated>2021-01-28T23:13:00-03:00</updated><id>http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix</id><content type="html" xml:base="http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/">&lt;p&gt;Hoje vou ensinar a como configurar um servidor matrix no linux, antes de mais nada vou explicar o 
+que é o matrix e o que são bridges, bem vamos lá? Matrix nada mais é que um protocolo open source 
+utilizado para comunicação de informação entre pessoas que pode utulizar criptografia ponta a ponta, 
+só que a maioria das pessoas não vai querer apenas chegar e instalar um servidor matrix apenas, 
+porque o grande destaque do matrix na minha opinião é o suporte que ele oferece a outros mensageiros 
+como o  whatsapp ou telegram, por meio de um recurso chamado bridges, com isso podemos basicamente 
+centralizar todos os nossos contatos de diferentes plataformas em apenas um único aplicativo, e no 
+decorrer do post vou detalhar o passo a passo para instalar o servidor matrix e as bridges do telegram 
+e whatsapp, ainda existe a possibilidade de se comunicar com outros servidores matrix, pois esse 
+programa tem o conceito de software federado [&lt;a href=&quot;#software-federado&quot;&gt;1&lt;/a&gt;].&lt;/p&gt;
+
+&lt;h2 id=&quot;bridges&quot;&gt;Bridges&lt;/h2&gt;
+&lt;p&gt;As bridges estendem as funcionalidades padrão que o nosso matrix server nos oferece, por exemplo com
+as bridges podemos no conectar a outros serviços como o facebook, whastapp, telegram e por ai vai, e
+falando no telegram, tem um recurso legal que se um de seus amigos tiver conta no telegram, mas você 
+não, estando ambos na mesma sala telegram/matrix você conseguirá interagir com todos os integrantes 
+participantes daquela sala, isso funciona pois esse recurso usa um bot pra postar as mensagens, mas 
+as bridges tem um lado negativo nem todas possuem criptografia de ponta a ponta se o serviço de 
+mensagens não oferecer esse tipo de proteção nem adianta pedir pro desenvolvedor implentar esse 
+recurso, aqui uma &lt;a href=&quot;https://matrix.org/bridges/&quot; target=&quot;blank&quot;&gt;lista&lt;/a&gt; com as bridges suportadas 
+pelo matrix.&lt;/p&gt;
+
+&lt;p&gt;Antes de prosseguir gostaria de ressaltar que as bridges indicadas não são meios oficiais de 
+interagir com seus contatos/grupos podendo ocasionar suspensão ou mesmo banimento da sua conta 
+consulte as normas de seu serviço de mensagens antes de prosseguir, ficando a cargo do leitor 
+continuar ou não com o tutorial. Como se tratam de softwares feitos por outros usuários não quer 
+dizer eles sejam seguros ou minimamente testados prossiga por sua conta e risco.&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando-o-matrix-server&quot;&gt;Instalando o matrix server&lt;/h2&gt;
+
+&lt;p&gt;Antes de tudo vamos instalar o synapse que será nosso servidor que vai usar nosso protocolo matrix,
+para installar garanta que já possua o os seguintes pacotes instalados na sua máquina: pip, virtualenv.
+O virtualenv é para não criar conflitos entre os pacotes python instalados e os pacotes que vamos 
+instalar já o pip é nosso gerenciador de pacotes python, com isso feito podemos prosseguir. 
+Para continuar sugiro que antes de tudo faça uma pasta em lugar de sua preferencia pra instalar o 
+matrix server não existe um padrão nesse passo, mas eu sugiro que façam o seguinte:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/matrix-server &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Isso vai criar uma pasta installs para instalação local dentro de share e já criar a pasta 
+matrix-server para o nosso server, ou você também pode criar a pasta em /opt/matrix/matrix-server, 
+após isso vamos dentro da pasta do nosso servidor e vamos criar o nosso virtualenv com o seguintes 
+comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/matrix-server
+virtualenv &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; python3 .env
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .env/bin/activate
+pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;matrix-synapse&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Isso irá criar o nosso ambiente python separado dos pacotes do sistema usando o python3 como base 
+para receber nossos pacotes na pasta .env, após rodar esses comandos provavelmente você terá 
+escrito (env) no inicio do seu prompt de comando indicando que você já está usando o ambiente virtual.&lt;/p&gt;
+
+&lt;p&gt;Após isso rode os seguintes comandos para gerar os arquivos de configuração do seu servidor matrix.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; synapse.app.homeserver &lt;span class=&quot;nt&quot;&gt;--server-name&lt;/span&gt; lenovo &lt;span class=&quot;nt&quot;&gt;--config-path&lt;/span&gt; homeserver.yaml &lt;span class=&quot;nt&quot;&gt;--generate-config&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--report-stats&lt;/span&gt; no&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Dica: aonde está lenovo sugiro alterar pelo hostname do seu computador, se não souber qual o seu 
+hostname digite &lt;b&gt;hostname&lt;/b&gt; em seu terminal, sugiro também que mantenha o hostname em minusculo 
+pois alguns clientes matrix podem não exibir as imagens de seus contatos corretamente.&lt;/p&gt;
+
+&lt;p&gt;Agora abra o arquivo &lt;b&gt;$HOME/.local/share/installs/matrix/matrix-server/homeserver.yaml&lt;/b&gt; em seu editor de 
+texto preferido e localize a linha com o seguinte conteúdo:&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;#enable_registration: false&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;e altere para:&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;enable_registration: true&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;Assim você permitirá que qualquer cliente consiga se registrar no seu servidor, senão quiser fazer 
+isso e ainda criar o seu usário use o seguinte commando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/matrix-server
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .env/bin/activate
+register_new_matrix_user &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; homeserver.yaml http://localhost:8008&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Para testar de tudo está nos conformes devemos executar o seguintes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/matrix-server
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .env/bin/activate
+synctl start&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;instalando-o-matrix-cliente&quot;&gt;Instalando o matrix cliente&lt;/h2&gt;
+
+&lt;p&gt;Existem inumeros clientes para matrix dos mais variados tipos para o mais variados gostos, mas o 
+principal e com mais recursos que conheço é o 
+&lt;a href=&quot;https://element.io/get-started&quot; target=&quot;blank&quot;&gt; element &lt;/a&gt;  entranto há uma gama de opções para 
+se escolher mostro alguns que estão na página principal do projeto matrix, para conhecer suas opções 
+clique &lt;a href=&quot;https://matrix.org/clients/&quot; target=&quot;blank&quot;&gt; aqui &lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;configurando-o-whastapp&quot;&gt;Configurando o Whastapp&lt;/h1&gt;
+&lt;p&gt;Essa Bridge funciona de maneira similar ao site web.whastapp.com ou seja só funciona quando seu 
+celular está conectado a internet.&lt;/p&gt;
+
+&lt;p&gt;Antes de prosseguir você vai precisar instalar as dependências dessa bridge que são:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;go&lt;/li&gt;
+  &lt;li&gt;Olm dev&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Para instalar as dependências em distrinuições baseadas em debian use o seguinte comando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;golang libolm-dev &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Para instalar a bridge do whastapp execute os seguintes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/mautrix-whatsapp
+wget https://mau.dev/tulir/mautrix-whatsapp/-/jobs/6040/artifacts/download?file_type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;archive &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/mautrix-whatsapp/mautrix-whatsapp.zip
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/mautrix-whatsapp
+unzip mautrix-whatsapp.zip
+&lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;example-config.yaml config.yaml
+./mautrix-whatsapp &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após isso você deverá editar o arquivo &lt;b&gt;$HOME/.local/share/installs/matrixconfig.yaml&lt;/b&gt; e fazer as seguintes 
+alterações:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://example.com&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Deverá ser mudado para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://localhost:8008&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;example.com&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Deverá ser mudado para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;aqui-vai-a-saida-do-comando-hostname-em-minusculo3&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;        &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;relaybot&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Deverá ser mudado para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;        &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;user&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Terminada essa edição precisamos gerar o arquivo registraition.yaml com o seguinte comando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/mautrix-whatsapp
+./mautrix-whatsapp &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após isso precisamos registrar nossa bridge no arquivo do nosso server, abrindo o seguinte arquivo 
+$HOME/.local/share/installs/matrix/matrix-server/homeserver.yaml e modificar as seguintes linhas:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#app_service_config_files:&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Para :&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;app_service_config_files&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/home/rodrigo/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;.local/share/installs/matrix/mautrix-whatsapp/registration.yaml&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Modifique a parte entre colchetes com base na sua home de usuário e remova os colchetes ao fim da 
+edição.&lt;/p&gt;
+
+&lt;p&gt;Para continuar com o processo digite os seguintes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/matrix-server
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .env/bin/activate
+synctl stop
+synctl start&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Isso vai fazer com que as configurções da bridge sejam lidas pelo nosso server.&lt;/p&gt;
+
+&lt;p&gt;Para começar o processo de login inicie um chat com o bot do whatsapp convide o bot do whatsapp 
+digitando no nome de usuário @whatsappbot:seu-hostname-aqui e então em alguns instantes o bot 
+entrará na sala, para iniciar o processo de login digite: 
+&lt;b&gt;!wa login&lt;/b&gt; e então o bot irá gerar um qrcode que ficará válido somente por alguns instantes, 
+após abra o whatsapp e toque nos três pontinhos e toque em whatsapp web e depois toque em 
+&lt;b&gt;Escanear código QR &lt;/b&gt; depois leia o código enviado pelo bot e então todos seus chats de 
+grupos e contatos irão começar a serem sincronizados no seu cliente matrix, se não conseguir 
+escanear a tempo digite novamente &lt;b&gt;!wa login&lt;/b&gt; e então o bot irá gerar um novo qrcode para 
+você escanear.&lt;/p&gt;
+
+&lt;h1 id=&quot;configurando-o-telegram&quot;&gt;Configurando o telegram&lt;/h1&gt;
+
+&lt;p&gt;Para configurar o telegram primeiro clone o repositório do telegram com os seguintes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix
+git clone https://github.com/tulir/mautrix-telegram
+git checkout v0.9.0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após isso você deverá criar um novo virtualenv e instalar os pacotes necessários com os seguintes 
+comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/mautrix-telegram
+virtualenv &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; python3 .env
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .env/bin/activate
+pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;mautrix-telegram&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Após isso você deverá gerar um app ID na sua conta telegram no seguinte 
+&lt;a href=&quot;https://my.telegram.org/apps&quot;&gt;link&lt;/a&gt;. Depois disso você precisará copiar o arquivo de exemplo de 
+configuração para fazer as mudanças com os seguintes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/mautrix-telegram
+&lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;mautrix_telegram/example-config.yaml config.yaml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Agora precisamos modificar o arquivo &lt;b&gt;$HOME/.local/share/installs/matrix/mautrix-telegram/config.yaml&lt;/b&gt; para 
+isso modifique as seguintes linhas:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://example.com&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Deverá ser mudado para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://localhost:8008&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;example.com&amp;lt;/b&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Deverá ser mudado para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;aqui-vai-a-saida-do-comando-hostname-em-minusculo&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;relaybot&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Deverá ser mudado para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;full&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;    &lt;span class=&quot;na&quot;&gt;api_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;12345&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;api_hash&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tjyd5yge35lbodk1xwzw2jstp90k55qz&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Deverá ser mudado para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;    &lt;span class=&quot;na&quot;&gt;api_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;seu-id-obtido-em-https://my.telegram.org/apps&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;api_hash&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;seu-hash-obtido-em-https://my.telegram.org/apps&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Nessa etapa precisamos gerar o nosso arquivo que autoriza nossa bridge no nosso server, com os 
+seguintes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/mautrix-telegram
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .env/bin/activate
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; mautrix_telegram &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Depois disso tudo feito novamente precisamos registrar nossa bridge para o nosso server 
+reconhece-lá, para isso edite o arquivo $HOME/.local/share/installs/matrix/matrix-server/homeserver.yaml e
+procure a seguinte linha:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;app_service_config_files&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/home/rodrigo/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;].local/share/installs/matrix/mautrix-telegram/registration.yaml&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;e modifique para:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;app_service_config_files&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/home/rodrigo/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;].local/share/installs/matrix/mautrix-telegram/registration.yaml&quot;&lt;/span&gt; 
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/home/rodrigo/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;].local/share/installs/matrix/mautrix-whatsapp/registration.yaml&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Aonde estiver entre colchetes substitua com o valor da sua váriavel $HOME, se não souber abra um 
+terminal digite o seguinte comando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;e faça a substituição.&lt;/p&gt;
+
+&lt;p&gt;Após isso precisamos parar o nosso servidor e inicia-ló novamente para que ele autorize nossa bridge,
+para isso execute os seguintes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/installs/matrix/matrix-server
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .env/bin/activate
+synctl stop
+synctl start&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Agora precisamos iniciar o processo de login no telegram, para iniciar a sincronização dos seus 
+dados para isso faça o seguinte: convide o bot @telegrambot:seu-hostname-aqui. Após o bot se juntar 
+a conversa digite &lt;b&gt;!tg login&lt;/b&gt; então o bot irá pedir seu número do telegram, envie o número no 
+seguinte formato: +5511999999999 aguarde uma mensagem que será enviada para o seu celular. Quando a 
+mensagem chegar, digite o código de segurança no chat com o bot e após isso o bot vai iniciar a 
+sincronização dos seus chats. Massa né?&lt;/p&gt;
+
+&lt;p&gt;Diferente do whatsapp o telegram não precisa que seu celular se mantenha o tempo todo conectado na 
+internet, para ter acesso a novas mensagens.&lt;/p&gt;
+
+&lt;p&gt;Você pode modificar os passos do tutorial conforme o necessário para se adequar a sua realidade, o 
+tutorial serve como um guia para quem está com dificuldades em algum passo especifico.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Apêndice:&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#software-federado&quot; id=&quot;software-federado&quot;&gt;[1]&lt;/a&gt; Software federado: é um software que você pode executar sua própia instância sem maiores 
+impedimentos e se juntar a rede principal, um exemplo de software não fedarado é a snap-store da 
+canonical pois somente os detentores do código backend podem rodar e distribuir conforme suas 
+escolhas. &lt;a href=&quot;https://matrix.org/docs/guides/introduction&quot;&gt;Referência&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Fontes:&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://matrix.org/&quot;&gt;https://matrix.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/tulir/mautrix-whatsapp/wiki/Bridge-setup&quot; target=&quot;_blank&quot;&gt;https://github.com/tulir/mautrix-whatsapp/wiki/Bridge-setup&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/tulir/mautrix-telegram/wiki/Bridge-setup&quot; target=&quot;_blank&quot;&gt;https://github.com/tulir/mautrix-telegram/wiki/Bridge-setup&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="software" /><summary type="html">Hoje vou ensinar a como configurar um servidor matrix no linux, antes de mais nada vou explicar o que é o matrix e o que são bridges, bem vamos lá? Matrix nada mais é que um protocolo open source utilizado para comunicação de informação entre pessoas que pode utulizar criptografia ponta a ponta, só que a maioria das pessoas não vai querer apenas chegar e instalar um servidor matrix apenas, porque o grande destaque do matrix na minha opinião é o suporte que ele oferece a outros mensageiros como o whatsapp ou telegram, por meio de um recurso chamado bridges, com isso podemos basicamente centralizar todos os nossos contatos de diferentes plataformas em apenas um único aplicativo, e no decorrer do post vou detalhar o passo a passo para instalar o servidor matrix e as bridges do telegram e whatsapp, ainda existe a possibilidade de se comunicar com outros servidores matrix, pois esse programa tem o conceito de software federado [1].</summary></entry></feed>

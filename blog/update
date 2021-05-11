@@ -1,0 +1,4 @@
+#!/bin/sh
+#JEKYLL_ENV enables google_analytics and other stuff
+site_destination=$HOME/Documentos/Git/Personal/rodrigo-barros.github.io/blog
+JEKYLL_ENV=production bundle exec jekyll build -d $site_destination

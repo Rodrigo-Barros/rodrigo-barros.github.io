@@ -1,184 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Página</title>
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a href="#sobre" class="nav-link">Sobre</a></li>
-          <li class="nav-item"><a href="#Projetos" class="nav-link">Projetos</a></li>
-          <li class="nav-item"><a href="#Experiencia" class="nav-link">Experiência</a></li>
-          <li class="nav-item">
-            <a href="https://rodrigo-barros.github.io/littleblog" target="_blank" class="nav-link"
-              >Blog</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="mailto:rodrigogcbarros@gmail.com" class="nav-link mailtoui">Contato</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <main class="container">
-      <aside>
-        <h1 class="text-center">Rodrigo Barros</h1>
-        <ul>
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#Projetos">Projetos</a></li>
-          <li><a href="#Experiencia">Experiência</a></li>
-          <li><a href="https://rodrigo-barros.github.io/littleblog" target="_blank">Blog</a></li>
-          <li>
-            <a href="mailto:rodrigogcbarros@gmail.com" class="mailtoui">Contato</a>
-          </li>
-        </ul>
-      </aside>
-      <div class="row">
-        <div class="col-12" id="sobre">
-          <h1>Um pouco sobre mim</h1>
-          <hr />
-          <p class="text-justify text-modern text-alignv paragraph">
-            Olá meu nome é Rodrigo Gabriel Clemente de Barros e minha História com tecnologia
-            propriamente dita se inicia desde muito cedo, acredito que quando ganhei meu primeiro
-            computador em torno da 7ª ou 8ª série, após pouco tempo percebi que já sabia muito mais
-            sobre computadores que muitas pessoas que tinham mais tempo de uso do equipamento que
-            eu, mas só fui adquirir um real interesse por programação propriamente dita quando uma
-            dia um amigo meu queria construir um site para exibir estátisticas de um jogo e para
-            isso ele consumia uma api, porém no meio do desenvolvimento ele encontrou dificuldades
-            no desenvolvimento, decidi então ajudá-ló e a partir desse dia começamos a desenvolver
-            nosso site em PHP com MySQL, desde então meu interesse po tecnologia só foi aumentando.
-          </p>
-        </div>
-        <div class="wrapper-panel mb-3" id="Projetos">
-          <div id="projetos" class="col-12">
-            <h1 class="text-right">Projetos</h1>
-            <p class="text-modern">Alguns de meus projetos podem ser vistos nos links a seguir :</p>
-            <div class="row">
-              <div class="col-12 col-md-6 mb-3">
-                <a
-                  href="https://rodrigo-barros.github.io/littleblog"
-                  target="_blank"
-                  class="text-decoration-none"
-                >
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title text-center">Littleblog</h5>
-                      <hr />
-                      <img src="img/littleblog.png" alt="página inicial do littleblog" />
-                      <div class="card-footer">
-                        <p>Pequeno blog dedicado a postar o que eu estou fazendo</p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="col-12 col-md-6">
-                <a
-                  href="https://rodrigo-barros.github.io/tabela?auth=true"
-                  target="_blank"
-                  class="text-decoration-none"
-                >
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title text-center">Tabela de classificações</h5>
-                      <hr />
-                      <img src="img/tabela.png" alt="Tabela de classificações" />
-                      <div class="card-footer">
-                        <p>
-                          Uma tabela para um campenato de jogos de corrida utilizando o firebase
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="wrapper-panel" id="Experiencia">
-          <div id="experiencia" class="col-12 text-justify">
-            <h1>Experiência</h1>
-            <hr />
-            <p class="paragraph text-modern">
-              Bom quanto a minha experiência com já dito antes eu já participei da construção de um
-              site que exibia informações sobre um determinado jogo para construir o site foram
-              utilizados alguns recursos tais como:
-            </p>
-            <ul class="text-modern">
-              <li>PHP para consumir os dados da api e manupulação do banco de dados</li>
-              <li>Jquery para fazer a interação com o usuário</li>
-              <li>MySQL para armazenar os dados dos usuários</li>
-              <li>Bootstrap para auxiliar na apresentação visual do site</li>
-            </ul>
-            <p class="paragraph text-modern">
-              Também realizei alguns projetos pessoais pessoais tive uma experiência profissional
-              como desenvolvedor em uma agência de websites focada em SEO, lá pude ver como é o
-              mercado de trabalho, o que se exige de um profissional, aprendi muita coisa lá também,
-              após algum tempo de trabalho resolvi aprender um framework (Laravel) que alguns amigos
-              me recomendaram, e vi as facilidades que ele pode prporcionar para o desenvolvedor que
-              é essencial para o mercado atual.
-            </p>
-          </div>
-        </div>
-
-        <!--
-        <div id="blog" class="col-12">
-          <h1 class="text-right">Blog</h1>
-          <p></p>
-        </div>
-        -->
-      </div>
-    </main>
-
-    <script src="js/jquery-3.4.1.min.js" charset="utf-8"></script>
-    <script src="js/bootstrap.js" charset="utf-8"></script>
-    <script charset="utf-8">
-      $(window).scroll(function() {
-        var windowHeight = $(window).height()
-        var panel = $(window).scrollTop() / windowHeight + 1
-        console.log(panel)
-
-        if (panel >= 2.55 && panel < 4) {
-          $("#experiencia").css("display", "block")
-          $("aside ul li a").removeAttr("style")
-          $("aside ul li:nth-child(3) a").css("background", "#DEA235")
-          $("aside ul li:nth-child(3) a").css("border-radius", "30px")
-          $("aside ul li:nth-child(3) a").css("color", "black")
-        } else if (panel >= 1.7 && panel <= 3) {
-          $("#projetos").css("display", "block")
-          $("aside ul li a").removeAttr("style")
-          $("aside ul li:nth-child(2) a").css("background", "white")
-          $("aside ul li:nth-child(2) a").css("border-radius", "30px")
-          $("aside ul li:nth-child(2) a").css("color", "black")
-        } else if (panel >= 1 && panel < 2) {
-          $("aside ul li a").removeAttr("style")
-          $("aside ul li:nth-child(1) a").css("background", "#3651ff")
-          $("aside ul li:nth-child(1) a").css("border-radius", "30px")
-        }
-      })
-    </script>
-    <script
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Um breve perfil exibindo o meu portifólio" />
+  <title>Rodrigo Barros</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css"/>
+  <script defer src="js/script.js"></script>
+  <script
+      defer
       src="https://cdn.jsdelivr.net/npm/mailtoui@1.0.3/dist/mailtoui-min.js"
       data-options='{"title":"Enviar Email usando", "buttonText1":"Gmail no navegador", "buttonText2":"Outlook no navegador", "buttonText3": "Yahoo no navegador" ,"buttonText4":"Aplicativo de email do sistema", "buttonTextCopy":"Copiar", "buttonTextCopyAction":"Copiado"}'
     ></script>
-  </body>
+</head>
+<body>
+  <div class="flex-container">
+    <div class="left">
+      <h4 class="name">Rodrigo Barros</h4>
+      <ul class = "site-content">
+        <li>
+          <a href="#about">Quem sou eu?</a>
+        </li>
+        <li>
+          <a href="#projects">Projetos</a>
+        </li>
+        <li>
+          <a href="#experience">Experiência</a>
+        </li>
+      </ul>
+      <ul class="external-content">
+        <li>
+          <a href="blog" target="_blank">Blog</a>
+        </li>
+        <li>
+          <a href="https://github.com/Rodrigo-Barros" target="_blank">Github</a>
+        </li>
+        <li>
+          <a href="mailto:rodrigogcbarros@gmail.com" class="nav-link mailtoui">Contato</a>
+        </li>
+      </ul>
+    </div>
+    <div class="right">
+      <section id="about">
+        <h4 class="title">Quem sou eu?</h4>
+        <p>Olá meu nome é Rodrigo Gabriel Clemente de Barros e minha História com tecnologia propriamente dita se inicia desde muito cedo, acredito que quando ganhei meu primeiro computador em torno da 7ª ou 8ª série, após pouco tempo percebi que já sabia muito mais sobre computadores que muitas pessoas que tinham mais tempo de uso do equipamento que eu, mas só fui adquirir um real interesse por programação propriamente dita quando uma dia um amigo meu queria construir um site para exibir estátisticas de um jogo e para isso ele consumia uma api, porém no meio do desenvolvimento ele encontrou dificuldades no desenvolvimento, decidi então ajudá-ló e a partir desse dia começamos a desenvolver nosso site em PHP com MySQL, desde então meu interesse por tecnologia só foi aumentando. </p>        
+      </section>
+      <section id="projects">
+        <h4 class="title">Projetos</h4>
+        <p>Alguns de meus projetos podem ser vistos nos links a seguir:</p>
+        <div class="projects">
+          <a class="card" href="https://rodrigo-barros.github.io/littleblog" target="_blank">
+          <figure>
+            <p>Littleblog</p>
+            <img src="img/littleblog.png" alt="foto do blog usando o firebase" />
+            <figcaption>Blog usando o firebase</figcaption>
+          </figure>
+          </a>
+
+          <a href="https://rodrigo-barros.github.io/tabela?auth=true" target="_blank" class="card">
+          <figure>
+            <p>Tabela de Classificações</p>
+            <img src="img/tabela.png" alt="foto da tabela de classificação do campeonato" />
+            <figcaption>Tabela de Classificação para um campeonato</figcaption>
+          </figure>
+          </a>
+        </div>
+        <p class="text-center"> Para mais projetos visite meu perfil no <a href="https://github.com/Rodrigo-Barros" target="_blank">Github</a>.</p>
+      </section>
+      <section id="experience">
+        <h4 class="title">Experiência</h4>
+        <p> Bom quanto a minha experiência como já dito antes eu participei da construção de um site que exibia informações sobre um determinado
+          jogo para construir o site foram utilizados alguns recursos tais como:
+        </p>
+    <ul>
+      <li> PHP para consumir os dados da api e manupulação do banco de dados </li>
+      <li> Jquery para fazer a interação com o usuário</li>
+      <li>MySQL para armazenar os dados dos usuários</li>
+      <li>Bootstrap para auxiliar na apresentação visual do site</li>    
+    </ul>
+    <p>
+      Também realizei alguns projetos pessoais pessoais tive uma experiência profissional como desenvolvedor em uma agência de websites focada em 
+      SEO, lá pude ver como é o mercado de trabalho, o que se exige de um profissional, aprendi muita coisa lá também, após algum tempo de 
+      trabalho resolvi aprender um framework (Laravel) que alguns amigos me recomendaram, e vi as facilidades que ele pode proporcionar para o 
+      desenvolvedor que é essencial para o mercado atual. 
+    </p>
+      </section>
+      <section></section>
+    </div>
+  </div>
+</body>
 </html>
