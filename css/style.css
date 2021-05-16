@@ -34,6 +34,8 @@ html {
   align-content: space-between;
   animation: slide_right .7s;
   transition: .7s;
+  top: 0;
+  left: 0;
 }
 
   .name { 

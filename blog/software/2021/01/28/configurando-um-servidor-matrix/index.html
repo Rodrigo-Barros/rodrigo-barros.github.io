@@ -17,20 +17,19 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Configurando um servidor Matrix!!" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/","mainEntityOfPage":{"@type":"WebPage","@id":"http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/"},"headline":"Configurando um servidor Matrix!!","dateModified":"2021-01-28T23:13:00-03:00","description":"Hoje vou ensinar a como configurar um servidor matrix no linux, antes de mais nada vou explicar o que é o matrix e o que são bridges, bem vamos lá? Matrix nada mais é que um protocolo open source utilizado para comunicação de informação entre pessoas que pode utulizar criptografia ponta a ponta, só que a maioria das pessoas não vai querer apenas chegar e instalar um servidor matrix apenas, porque o grande destaque do matrix na minha opinião é o suporte que ele oferece a outros mensageiros como o whatsapp ou telegram, por meio de um recurso chamado bridges, com isso podemos basicamente centralizar todos os nossos contatos de diferentes plataformas em apenas um único aplicativo, e no decorrer do post vou detalhar o passo a passo para instalar o servidor matrix e as bridges do telegram e whatsapp, ainda existe a possibilidade de se comunicar com outros servidores matrix, pois esse programa tem o conceito de software federado [1].","datePublished":"2021-01-28T23:13:00-03:00","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/"},"@type":"BlogPosting","url":"http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/","headline":"Configurando um servidor Matrix!!","dateModified":"2021-01-28T23:13:00-03:00","datePublished":"2021-01-28T23:13:00-03:00","description":"Hoje vou ensinar a como configurar um servidor matrix no linux, antes de mais nada vou explicar o que é o matrix e o que são bridges, bem vamos lá? Matrix nada mais é que um protocolo open source utilizado para comunicação de informação entre pessoas que pode utulizar criptografia ponta a ponta, só que a maioria das pessoas não vai querer apenas chegar e instalar um servidor matrix apenas, porque o grande destaque do matrix na minha opinião é o suporte que ele oferece a outros mensageiros como o whatsapp ou telegram, por meio de um recurso chamado bridges, com isso podemos basicamente centralizar todos os nossos contatos de diferentes plataformas em apenas um único aplicativo, e no decorrer do post vou detalhar o passo a passo para instalar o servidor matrix e as bridges do telegram e whatsapp, ainda existe a possibilidade de se comunicar com outros servidores matrix, pois esse programa tem o conceito de software federado [1].","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/blog/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://rodrigo-barros.github.io/blog/feed.xml" title="Little Blog" /><script>
-if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<link rel="stylesheet" href="/blog/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://rodrigo-barros.github.io/blog/feed.xml" title="Little Blog" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5GQP1T2NNM"></script>
+<script>
+  window['ga-disable-G-5GQP1T2NNM'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'G-5GQP1T2NNM', 'auto');
-  ga('send', 'pageview');
-}
+  gtag('config', 'G-5GQP1T2NNM');
+
 </script>
-  
 </head>
 <body><header class="site-header" role="banner">
 
