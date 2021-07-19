@@ -1,4 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="http://rodrigo-barros.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rodrigo-barros.github.io/blog/" rel="alternate" type="text/html" /><updated>2021-05-16T19:25:00-03:00</updated><id>http://rodrigo-barros.github.io/blog/feed.xml</id><title type="html">Little Blog</title><subtitle>Um pequeno Blog dedicado as minhas aventuras no mundo do tecnologia.</subtitle><entry><title type="html">Configurando um servidor Matrix!!</title><link href="http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/" rel="alternate" type="text/html" title="Configurando um servidor Matrix!!" /><published>2021-01-28T23:13:00-03:00</published><updated>2021-01-28T23:13:00-03:00</updated><id>http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix</id><content type="html" xml:base="http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/">&lt;p&gt;Hoje vou ensinar a como configurar um servidor matrix no linux, antes de mais nada vou explicar o 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="http://rodrigo-barros.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rodrigo-barros.github.io/blog/" rel="alternate" type="text/html" /><updated>2021-07-18T22:12:27-03:00</updated><id>http://rodrigo-barros.github.io/blog/feed.xml</id><title type="html">Little Blog</title><subtitle>Um pequeno Blog dedicado as minhas aventuras no mundo do tecnologia.</subtitle><entry><title type="html">Empacotando Gems com nix</title><link href="http://rodrigo-barros.github.io/blog/nix/2021/07/18/empacotando-gems-com-nix/" rel="alternate" type="text/html" title="Empacotando Gems com nix" /><published>2021-07-18T17:36:43-03:00</published><updated>2021-07-18T17:36:43-03:00</updated><id>http://rodrigo-barros.github.io/blog/nix/2021/07/18/empacotando-gems-com-nix</id><content type="html" xml:base="http://rodrigo-barros.github.io/blog/nix/2021/07/18/empacotando-gems-com-nix/">&lt;h1 id=&quot;uma-breve-introdução-sobre-nix&quot;&gt;Uma breve Introdução sobre Nix&lt;/h1&gt;
+
+&lt;p&gt;Você já deve ter ouvido sobre isso mas não sabe direito o que é nix. Bem aqui estou eu para explicar
+um pouco sobre esse tema, nix se divide em duas frentes a primeira delas é a linguagem de gerenciamento
+de pacotes que de característica declarativa, e a segunda frente são os pacotes em si. Então nix é
+uma maneira de gerenciar seus pacotes através de uma linguagem de programação? Sim! Mas você pode estar
+se perguntando o que isso tem de tão incrível? Bem com nix você pode mudar de distribuição linux e 
+carregar seus conjunto de programas e configurações para onde você quiser isso é simplemente maravilhoso
+você pode até mesmo usar o nix no mac, ou no windows usando o WSL.&lt;/p&gt;
+
+&lt;h1 id=&quot;um-pouco-de-contexto&quot;&gt;Um pouco de contexto&lt;/h1&gt;
+&lt;p&gt;Bem eu estava Procurando uma maneira em que eu pudesse continuar escrevendo no meu blog usando o jekyll
+como meu gerenciador de blog, então comecei a ler o manual para ver o que eu podia fazer para atingir 
+essa meta&lt;/p&gt;
+
+&lt;h1 id=&quot;como-empacotar-gems-usando-nix&quot;&gt;Como empacotar gems usando nix&lt;/h1&gt;
+&lt;p&gt;Seria muito incorreto da minha parte (&lt;a href=&quot;#using-jekyll-and-nix-to-blog&quot;&gt;1&lt;/a&gt;) dizer que apenas consultei o manual para instalar o jekyll, também 
+consultei outros blogs. Vamos ao que interessa, para começar primeiro tenha o Gemfile e o Gemlock em uma
+pasta, para este exemplo estarei usando o diretório &lt;strong&gt;~/.config/nixpkgs/jekyll/&lt;/strong&gt; como raiz.&lt;/p&gt;
+
+&lt;p&gt;Entre na pasta do seu projeto:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd ~/.config/nixpkgs/jekyll&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Agora nós precisamos gerar as dependências do Gemfile para nix para isso vamos usar o bundix com o seguinte comando:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nix-shell -p bundler -p bundix --run 'bundler update; bundler lock; bundler package --no-install --path vendor; bundix; rm -rf vendor'&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Agora para podermos adicionar o jekyll junto com nossos plugins como por exemplo o tema minima que não funciona por 
+padrão instalando apenas o jekyll, ou qualquer outra gem declarada dentro do arquivo Gemfile, precisamos escrever o 
+seguinte arquivo:&lt;/p&gt;
+
+&lt;div class=&quot;language-nix highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# arquivo:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ~/.config/nixpkgs/jekyll/default.nix&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+  &lt;span class=&quot;nv&quot;&gt;pkgs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;nixpkgs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;bundlerApp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pkgs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;bundlerApp&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}:&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;bundlerApp&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;pname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;gemdir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;./.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;exes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Usando a função bundlerApp podemos por fim adicionar ao nosso ambiente o jekyll com o tema minima, agora podemos importar
+o jekyll a partir de nosso arquivo config.nix dentro de ~/.config/nixpkgs, ficando do seguinte modo:&lt;/p&gt;
+
+&lt;div class=&quot;language-nix highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# arquivo ~/.config/nixpkgs/config.nix&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+  &lt;span class=&quot;nv&quot;&gt;pkgs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;nixpkgs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;nixpkgs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;allowunfree&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;},&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;jekyll&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pkgs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;callPackage&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;./jekyll&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}:&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;c&quot;&gt;# allow comercial programs like chrome&lt;/span&gt;
+   &lt;span class=&quot;nv&quot;&gt;allowUnfree&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+   &lt;span class=&quot;nv&quot;&gt;packageOverrides&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pkgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;rec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+     &lt;span class=&quot;nv&quot;&gt;home&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pkgs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;buildEnv&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;home-env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;nv&quot;&gt;paths&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pkgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+         &lt;span class=&quot;c&quot;&gt;# ...&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;jekyll&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+     &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+   &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# secção ... representa um trecho de código que foi intencionalmente omitida&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;E então podemos instalar nosso pacotes ao nosso ambiente usando o seguinte commando:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nix-env -iA nixpkgs.home&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;fontes-consultadas&quot;&gt;Fontes Consultadas:&lt;/h1&gt;
+
+&lt;p&gt;using jekyll and nix to blog &lt;a id=&quot;using-jekyll-and-nix-to-blog&quot;&gt;&lt;/a&gt; &lt;a href=&quot;https://nathan.gs/2019/04/19/using-jekyll-and-nix-to-blog/&quot;&gt;Nathan Bijnens&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;using-ruby &lt;a href=&quot;https://nixos.org/manual/nixpkgs/stable/#sec-language-ruby&quot;&gt;Nixpkgs Manual&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="nix" /><summary type="html">Uma breve Introdução sobre Nix</summary></entry><entry><title type="html">Configurando um servidor Matrix!!</title><link href="http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/" rel="alternate" type="text/html" title="Configurando um servidor Matrix!!" /><published>2021-01-28T23:13:00-03:00</published><updated>2021-01-28T23:13:00-03:00</updated><id>http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix</id><content type="html" xml:base="http://rodrigo-barros.github.io/blog/software/2021/01/28/configurando-um-servidor-matrix/">&lt;p&gt;Hoje vou ensinar a como configurar um servidor matrix no linux, antes de mais nada vou explicar o 
 que é o matrix e o que são bridges, bem vamos lá? Matrix nada mais é que um protocolo open source 
 utilizado para comunicação de informação entre pessoas que pode utulizar criptografia ponta a ponta, 
 só que a maioria das pessoas não vai querer apenas chegar e instalar um servidor matrix apenas, 

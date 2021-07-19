@@ -3,10 +3,10 @@
 	"file": "main.css",
 	"sources": [
 		"main.scss",
-		"../../../../var/lib/gems/2.7.0/gems/minima-2.5.1/_sass/minima.scss",
-		"../../../../var/lib/gems/2.7.0/gems/minima-2.5.1/_sass/minima/_base.scss",
-		"../../../../var/lib/gems/2.7.0/gems/minima-2.5.1/_sass/minima/_layout.scss",
-		"../../../../var/lib/gems/2.7.0/gems/minima-2.5.1/_sass/minima/_syntax-highlighting.scss"
+		"../../../../nix/store/a5d2790aaqay13j8hp8vcn4l1b2v0s1w-ruby2.7.4-minima-2.5.1/lib/ruby/gems/2.7.0/gems/minima-2.5.1/_sass/minima.scss",
+		"../../../../nix/store/a5d2790aaqay13j8hp8vcn4l1b2v0s1w-ruby2.7.4-minima-2.5.1/lib/ruby/gems/2.7.0/gems/minima-2.5.1/_sass/minima/_base.scss",
+		"../../../../nix/store/a5d2790aaqay13j8hp8vcn4l1b2v0s1w-ruby2.7.4-minima-2.5.1/lib/ruby/gems/2.7.0/gems/minima-2.5.1/_sass/minima/_layout.scss",
+		"../../../../nix/store/a5d2790aaqay13j8hp8vcn4l1b2v0s1w-ruby2.7.4-minima-2.5.1/lib/ruby/gems/2.7.0/gems/minima-2.5.1/_sass/minima/_syntax-highlighting.scss"
 	],
 	"sourcesContent": [
 		"@import \"minima\";\n",
